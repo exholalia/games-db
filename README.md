@@ -10,7 +10,7 @@ This project aims to fill that gap.
 
 Media Type | Source | Implemented?
 ----|----|----
-**Video Games** | [IGDB](https://api-docs.igdb.com) | *In Progress*
+Video Games | [IGDB](https://api-docs.igdb.com) | *In Progress*
 Steam | [Steam API](https://developer.valvesoftware.com/wiki/Steam_Web_API#GetPlayerSummaries_.28v0001.29) | No
 Nintendo Switch | [Nintendo Switch Rest API](https://dev.to/mathewthe2/intro-to-nintendo-switch-rest-api-2cm7) | No
 Playstation Network | [PSNAWP](https://pypi.org/project/PSNAWP) | No
