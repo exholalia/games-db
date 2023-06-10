@@ -1,4 +1,5 @@
-import requests, json
+import logging, requests, sqlite3, sys
+from sqlite3 import Error
 
 client_id = None
 api_key = None
@@ -26,9 +27,23 @@ def igdb_request(url_endpoint, query):
 def get_game_details(game_id):
     return igdb_request('/games', f'fields name, platforms; where id = {game_id};')
 
+# Create SQLite connections
+def create_sqlite_connection():
+    global connection
+    if connection is not None:
+        return
+    
+    try:
+        connection = sqlite3.connect("games.db")
+        logging.debug("Connection to SQLite Games DB successful")
+    except Error as e:
+        logging.error(f"The error '{e}' occurred")
+
+    return connection
+
 # Login to IGDB REST API
-def init():
-    global client_id, api_key, bearer_token, connection
+def login():
+    global client_id, api_key, bearer_token
     # Set up IGDB REST API connection
     # Get the client ID and API key from the text files  
     if (client_id is None):
@@ -50,10 +65,21 @@ def init():
     
     # Get the access token from the response
     bearer_token = login_response.json()['access_token']
+    logging.debug(f"Bearer token: {bearer_token}")
+    
+def init():
+    logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
+    login()
+    create_sqlite_connection()
+    
+def cleanup():
+    connection.close()
 
 def main():
     init()
     print(get_game_details(22704)['platforms'])
+    
+    cleanup()
     
 
 main()
