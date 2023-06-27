@@ -31,6 +31,7 @@ def get_game_details(game_id):
 def create_sqlite_connection():
     global connection
     if connection is not None:
+        logging.info("Connection to SQLite Games DB already exists")
         return
     
     try:
@@ -68,7 +69,10 @@ def login():
     logging.debug(f"Bearer token: {bearer_token}")
     
 def init():
-    logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
+    # Set logging level
+    logging.basicConfig(stream=sys.stderr, level=logging.WARNING)
+    
+    # Start setup
     login()
     create_sqlite_connection()
     
