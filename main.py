@@ -21,11 +21,15 @@ def igdb_request(url_endpoint, query):
         data=query
     )
     
-    return response.json()[0]
+    return response.json()
 
 # Get details of a particular game
 def get_game_details(game_id):
-    return igdb_request('/games', f'fields name, platforms; where id = {game_id};')
+    return igdb_request('/games', f'fields name, platforms; where id = {game_id};')[0]
+
+# Get details of all platforms
+def get_platforms_details():
+    return igdb_request('/platforms', f'fields id, name; limit 500;')
 
 # Create SQLite connections
 def create_sqlite_connection():
@@ -81,7 +85,7 @@ def cleanup():
 
 def main():
     init()
-    print(get_game_details(22704)['platforms'])
+    print(get_platforms_details())
     
     cleanup()
     
