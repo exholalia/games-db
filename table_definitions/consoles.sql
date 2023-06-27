@@ -1,5 +1,5 @@
 CREATE TABLE consoles (
-  key integer not null primary key AUTOINCREMENT,
+  console_id integer not null primary key,
   name text not null
 )
 
