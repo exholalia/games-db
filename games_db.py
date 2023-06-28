@@ -16,14 +16,15 @@ class GamesDatabase:
     def cleanup(self):
         self.connection.close()
 
-# Backup the database
+# Backup the database if it exists
 def backup():
-    # Get the new backup number
-    i = 1
-    while os.path.isfile(f"games.db.bak{i}"):
-        i += 1
-    f = os.rename("games.db", f"games.db.bak{i}")
-    logging.debug(f"Backed up games.db to games.db.bak{i}: {f}")
+    if os.path.isfile("games.db"):
+        # Get the new backup number
+        i = 1
+        while os.path.isfile(f"games.db.bak{i}"):
+            i += 1
+        f = os.rename("games.db", f"games.db.bak{i}")
+        logging.debug(f"Backed up games.db to games.db.bak{i}: {f}")
 
 # Reset the database
 def reset():
