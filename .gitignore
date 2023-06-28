@@ -1,5 +1,5 @@
 api_keys/*
-__pychache__/*
+__pycache__/*
 .vscode/settings.json
 games.db
 games.db.bak*
