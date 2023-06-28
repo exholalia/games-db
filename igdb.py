@@ -39,7 +39,7 @@ class IGDB:
         f.close()
         
         f = open('api_keys/igdb_api_key.txt', 'r')
-        api_key = f.readline().rstrip() # This doesn't need to be stored
+        api_key = f.readline().rstrip() # This doesn't need to be stored in the object
         f.close()
         
         # Login to IGDB

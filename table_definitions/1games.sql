@@ -6,4 +6,4 @@ CREATE TABLE games (
   publish_date text,
   series text,
   series_number numeric
-)
+);
