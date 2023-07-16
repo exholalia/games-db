@@ -21,9 +21,14 @@ class GamesDatabase:
         cursor.execute("INSERT INTO platforms (console_id, name) VALUES (?, ?)", (platform['id'], platform['name']))
         self.connection.commit()
         
+    def add_my_platforms(self):
+        os.system("sqlite3 games.db < sql_scripts/add_my_platforms.sql")
+        
     def add_platforms(self, platforms):
         for platform in platforms:
             self.add_platform(platform)
+        
+        self.add_my_platforms()
             
     def print_table(self, table_name):
         cursor = self.connection.cursor()
