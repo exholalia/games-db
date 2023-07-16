@@ -26,7 +26,22 @@ class IGDB:
     # Get details of a particular game
     def get_game_details(self, game_id):
         return self.igdb_request('/games', f'fields name, platforms; where id = {game_id};')[0]
-
+    
+    # Get the ID of a game
+    def search_game_id(self, game_name):
+        games = self.igdb_request('/games', f'fields name, id; search "{game_name}";')
+        
+        print(games)
+        
+        for i in range(len(games)):
+            print(f"{i+1}: {games[i]['name']}")
+            
+        g = int(input("Enter the number of the correct game: "))
+        g -= 1
+        
+        return games[g]['id']
+        
+        
     # Get details of all platforms
     def get_platforms_details(self):
         return self.igdb_request('/platforms', f'fields id, name; limit 500;')

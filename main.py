@@ -1,6 +1,12 @@
 import logging, sys
 from igdb import IGDB
-from games_db import GamesDatabase
+from games_db import GamesDatabase, reset_games_db
+
+# Add all IGDB platforms to the database
+def add_all_platforms(igdb, games_db):
+    platforms = igdb.get_platforms_details()
+    games_db.add_platforms(platforms)
+    games_db.print_table("platforms")
 
 def main():
     # Set logging level
@@ -10,7 +16,8 @@ def main():
     games_db = GamesDatabase()
     igdb = IGDB()
     
-    print(igdb.get_platforms_details())
+    #reset_games_db()
+    add_all_platforms(igdb, games_db)
     
     games_db.cleanup()
 

@@ -15,6 +15,22 @@ class GamesDatabase:
     # Close SQLite connections
     def cleanup(self):
         self.connection.close()
+        
+    def add_platform(self, platform):
+        cursor = self.connection.cursor()
+        cursor.execute("INSERT INTO platforms (console_id, name) VALUES (?, ?)", (platform['id'], platform['name']))
+        self.connection.commit()
+        
+    def add_platforms(self, platforms):
+        for platform in platforms:
+            self.add_platform(platform)
+            
+    def print_table(self, table_name):
+        cursor = self.connection.cursor()
+        cursor.execute(f"SELECT * FROM {table_name}")
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
 
 # Backup the database if it exists
 def backup():
@@ -27,12 +43,12 @@ def backup():
         logging.debug(f"Backed up games.db to games.db.bak{i}: {f}")
 
 # Reset the database
-def reset():
+def reset_games_db():
     backup()
     
     db = GamesDatabase()
-    for definition in os.listdir("table_definitions"):
-        os.system(f"sqlite3 games.db < table_definitions/{definition}")
+    for definition in os.listdir("sql_scripts/table_definitions"):
+        os.system(f"sqlite3 games.db < sql_scripts/table_definitions/{definition}")
     
     
 if __name__ == "__main__":
@@ -40,4 +56,4 @@ if __name__ == "__main__":
     r = input()
     
     if (r == "y"):
-        reset()
+        reset_games_db()
