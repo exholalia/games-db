@@ -9,3 +9,7 @@ WHERE console_id = 6
     OR console_id = 167
     OR console_id = 384
     OR console_id = 385;
+
+CREATE VIEW my_platforms AS
+    SELECT * FROM platforms
+    WHERE owned = 1;

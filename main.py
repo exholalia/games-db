@@ -7,6 +7,8 @@ def add_all_platforms(igdb, games_db):
     platforms = igdb.get_platforms_details()
     games_db.add_platforms(platforms)
     games_db.add_my_platforms()
+    
+    games_db.print_table("my_platforms")
 
 def main():
     # Set logging level
