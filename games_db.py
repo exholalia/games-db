@@ -27,8 +27,6 @@ class GamesDatabase:
     def add_platforms(self, platforms):
         for platform in platforms:
             self.add_platform(platform)
-        
-        self.add_my_platforms()
             
     def print_table(self, table_name):
         cursor = self.connection.cursor()
